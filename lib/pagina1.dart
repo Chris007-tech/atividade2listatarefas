@@ -77,16 +77,33 @@ class _Pagina1State extends State<Pagina1> {
         title: Text("Lista Estudantes"),
         backgroundColor: Colors.indigo,
       ),
-      body: ListView.builder(
-        itemCount: listaestudantes.length,
-        itemBuilder: (context, index) {
-          return Meuwidget(
-            nome: listaestudantes[index].nome,
-            curso: listaestudantes[index].curso,
-            onDelete: () => _delete(index),
-          );
-        },
-      ),
+      body: listaestudantes.isEmpty
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.network(
+                    'https://cdn-icons-png.flaticon.com/512/4076/4076549.png',
+                    width: 150,
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    'Nenhum estudante na lista',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ],
+              ),
+            )
+          : ListView.builder(
+              itemCount: listaestudantes.length,
+              itemBuilder: (context, index) {
+                return Meuwidget(
+                  nome: listaestudantes[index].nome,
+                  curso: listaestudantes[index].curso,
+                  onDelete: () => _delete(index),
+                );
+              },
+            ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _abrirModal(context),
         child: Icon(Icons.add),
